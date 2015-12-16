@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Contact list</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>_id</th>
+                <th>_nom</th>
+                <th>_prenom</th>
+                <th>_societe</th>
+                <th>_adresse</th>
+                <th>_site</th>
+                <th>_pro</th>
+                <th>_telephone</th>
+                <th>_email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for contact in pagination %}
+            <tr>
+                <td><a href="{{ path('contact_show', { 'id': contact.id }) }}">{{ contact.id }}</a></td>
+                <td>{{ contact.nom }}</td>
+                <td>{{ contact.prenom }}</td>
+                <td>{{ contact.societe }}</td>
+                <td>{{ contact.adresse }}</td>
+                <td>{{ contact.site }}</td>
+                <td>{% if contact.pro %}Yes{% else %}No{% endif %}</td>
+                <td>{{ contact.telephone }}</td>
+                <td>{{ contact.email }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('contact_show', { 'id': contact.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('contact_edit', { 'id': contact.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {# display navigation #}
+    <div class="navigation">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    <ul>
+        <li>
+            <a href="{{ path('contact_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
